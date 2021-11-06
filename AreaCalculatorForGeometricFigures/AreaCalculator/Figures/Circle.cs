@@ -28,7 +28,7 @@ namespace AreaCalculator.Figures
 		/// Calculating the area of ​​a geometric figure.
 		/// </summary>
 		/// <returns>Figure area</returns>
-		protected override double CalculateArea()
+		public override double CalculateArea()
 		{
 			return Radius * Radius * Math.PI;
 		}

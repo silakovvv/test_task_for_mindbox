@@ -43,8 +43,14 @@ namespace AreaCalculator.Figures
         /// Calculating the area of ​​a geometric figure.
         /// </summary>
         /// <returns>Figure area.</returns>
-        protected override double CalculateArea()
+        /// <exception cref="InvalidOperationException">Throwing an exception if one of the sides of the triangle is larger than the other two.</exception>
+        public override double CalculateArea()
         {
+            if (!DasTriangleExists())
+            {
+                throw new InvalidOperationException("There are not enough points to calculate the area. The number of points must be more than two.");
+            }
+
             var semiPerimeter = (FirstSide + SecondSide + ThirdSide) / 2;
 
             var firstSideParameter = semiPerimeter - FirstSide;
@@ -58,13 +64,17 @@ namespace AreaCalculator.Figures
         /// The method checks if a triangle is rectangular.
         /// </summary>
         /// <returns>True if triangle is rectangular.</returns>
-        public bool IsRightTriangle()
+        /// <exception cref="InvalidOperationException">Throwing an exception if one of the sides of the triangle is larger than the other two.</exception>
+        public bool IsTriangleRight()
         {
-            double[] arrayOfSides = { FirstSide, SecondSide, ThirdSide };
-            
-            double maxSide = arrayOfSides.Max();
+            if (!DasTriangleExists())
+            {
+                throw new InvalidOperationException("There are not enough points to calculate the area. The number of points must be more than two.");
+            }
 
             bool isRightTriangle;
+
+            double maxSide = GetMaxSide();
 
             if (maxSide == FirstSide)
             {
@@ -81,5 +91,28 @@ namespace AreaCalculator.Figures
 
             return isRightTriangle;
         }
+
+        /// <summary>
+        /// Check the existence of a triangle for given sides.
+        /// </summary>
+        /// <returns>True if each side is less than the sum of the other two</returns>
+        public bool DasTriangleExists()
+        {
+            double maxSide = GetMaxSide();
+
+            return maxSide + maxSide <= FirstSide + SecondSide + ThirdSide;
+        }
+
+        /// <summary>
+        /// The method returns the maximum side of a triangle.
+        /// </summary>
+        /// <returns>The maximum side of a triangle.</returns>
+        private double GetMaxSide()
+        {
+            double[] arrayOfSides = { FirstSide, SecondSide, ThirdSide };
+
+            return arrayOfSides.Max();
+        }
+
     }
 }

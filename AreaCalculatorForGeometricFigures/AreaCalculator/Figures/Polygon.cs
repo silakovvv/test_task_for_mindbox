@@ -16,27 +16,25 @@ namespace AreaCalculator.Figures
 		/// <summary>
 		/// Parameterized constructor.
 		/// </summary>
-		/// <exception cref="ArgumentOutOfRangeException">Throwing an exception if the radius of the circle is negative.</exception>
-		protected override double CalculateArea()
+		/// <exception cref="InvalidOperationException">Throwing an exception if the count of points is not enough to build a figure.</exception>
+		public override double CalculateArea()
 		{
 			if (Points.Length < 3)
 			{
-				throw new ArgumentOutOfRangeException("There are not enough points to calculate the area. The number of points must be more than two.");
+				throw new InvalidOperationException("There are not enough points to calculate the area. The number of points must be more than two.");
 			}
 
 			double area = 0;
 
-			var sortedPoints = Points.OrderBy(point => point.X).ThenBy(point => point.Y).ToArray();
-
-			for (int i = 0; i < sortedPoints.Length; i++)
+			for (int i = 0; i < Points.Length; i++)
             {
-				if (i == sortedPoints.Length - 1)
+				if (i == Points.Length - 1)
                 {
-					area =+ sortedPoints[i].X * sortedPoints[0].Y - sortedPoints[0].X * sortedPoints[i].Y;
+					area += (Points[i].X * Points[0].Y - Points[0].X * Points[i].Y);
 					break;
 				}
 
-				area =+ sortedPoints[i].X * sortedPoints[i + 1].Y - sortedPoints[i + 1].X * sortedPoints[i].Y;
+				area += (Points[i].X * Points[i + 1].Y - Points[i + 1].X * Points[i].Y);
 			}
 
 			return Math.Abs(area) * 0.5;

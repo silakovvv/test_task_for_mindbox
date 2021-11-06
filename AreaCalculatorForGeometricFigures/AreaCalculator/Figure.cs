@@ -8,6 +8,6 @@ namespace AreaCalculator
         /// Calculating the area of ​​a geometric figure.
         /// </summary>
         /// <returns>Figure area</returns>
-        protected abstract double CalculateArea();
+        public abstract double CalculateArea();
     }
 }
