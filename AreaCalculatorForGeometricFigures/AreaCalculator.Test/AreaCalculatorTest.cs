@@ -96,7 +96,7 @@ namespace AreaCalculator.Test
         }
 
         /// <summary>
-        /// Checking to catch an exception if the triangle does not exist.
+        /// Testing the calculation of the area of ​​a polygon with insufficient number of points.
         /// </summary>
         [Test]
         public void Polygon_AreaCalculationWithInsufficientCountOfPointsTest()
